@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">AppStreet</string>
+    <string name="codigo_produto">Codigo produto</string>
+    <string name="nome">Nome</string>
+    <string name="quantidade">Quantidade</string>
+    <string name="preco">Preco</string>
+    <string name="observacao">Observacao</string>
+    <string name="endereco">Endereco</string>
+    <string name="telefone">Telefone</string>
+    <string name="descricao">Descricao</string>
+</resources>
