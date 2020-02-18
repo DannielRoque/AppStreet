@@ -8,4 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="toolbarBranco" parent="Theme.AppCompat">
+        <item name="colorPrimary">@color/corBranca</item>
+        <item name="colorPrimaryDark">@color/corBranca</item>
+        <item name="colorAccent">@color/corBranca</item>
+    </style>
+
 </resources>

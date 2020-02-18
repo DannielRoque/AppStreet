@@ -10,6 +10,7 @@
         android:id="@+id/toolbar_lista_dividendos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:theme="@style/toolbarBranco"
         app:titleTextColor="@color/corBranca"
         android:background="@color/cortoolbar"
         app:layout_constraintTop_toTopOf="parent"
