@@ -39,19 +39,33 @@ class MainActivity : AppCompatActivity() {
 
         call.enqueue(object : Callback<MutableList<Produto>>{
 
-            override fun onFailure(call: Call<MutableList<Produto>>, t: Throwable) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-
             override fun onResponse(
                 call: Call<MutableList<Produto>>,
                 response: Response<MutableList<Produto>>
             ) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+                when{
+                    response.isSuccessful->{
+                        response.body()?.let {
+                            val respostaProduto : MutableList<Produto> =
+                                response.body()!!
+                            configuraRecyclerView(respostaProduto)
+                        }
+                    }
+                }
+
             }
 
+            override fun onFailure(call: Call<MutableList<Produto>>, t: Throwable) {
+                Log.e("ROQUE", "Falha $t")
+            }
         })
+    }
 
+    private fun configuraRecyclerView(resposta : MutableList<Produto>){
+        Log.e("Roque", "resposta $resposta")
+        adapter = ListaProdutosAdapter(resposta)
+        lista_produtos_recyclerview.adapter = adapter
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

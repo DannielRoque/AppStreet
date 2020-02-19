@@ -3,14 +3,17 @@ package com.example.appstreet.ui.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.view.menu.ActionMenuItemView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appstreet.R
 import com.example.appstreet.modelo.Produto
+import com.google.gson.Gson
+import kotlinx.android.synthetic.main.item_produto.view.*
 
 class ListaProdutosAdapter(
-    val listaProdutos : MutableList<Produto>
+    val listaProdutos: MutableList<Produto>
 ) : RecyclerView.Adapter<ListaProdutosAdapter.ListaProdutosViewHolder>() {
+
+    private lateinit var onItemClickListener: OnItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListaProdutosViewHolder {
         val inflar = LayoutInflater.from(parent.context)
@@ -26,11 +29,27 @@ class ListaProdutosAdapter(
         holder.bind(listaProdutos[position])
     }
 
-    class ListaProdutosViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    fun onItemClickListener(onItemClickListener: OnItemClickListener){
+        this.onItemClickListener = onItemClickListener
+    }
+
+  inner  class ListaProdutosViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        private val campoNome = itemView.item_produto_nome
+        private val campoDescricao = itemView.item_produto_descricao
+        private val campoQuantidade = itemView.item_produto_quantidade
+        private val campoPreco = itemView.item_produto_preco
+        private val objectJson = Gson()
 
         fun bind(produto: Produto) {
-
+            itemView.setOnClickListener {
+                val dado = objectJson.toJson(produto)
+                onItemClickListener.onItemClick(dado, layoutPosition)
+            }
+            campoNome.text = produto.nome
+            campoDescricao.text = produto.descricao
+            campoQuantidade.text = produto.quantidade.toString()
+            campoPreco.text = produto.preco.toString()
         }
-
     }
 }
