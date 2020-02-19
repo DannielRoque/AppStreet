@@ -7,8 +7,12 @@ import android.view.Menu
 import android.view.MenuItem
 
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 import com.example.appstreet.R
+import com.example.appstreet.modelo.Produto
+import com.example.appstreet.retrofit.ProdutoService
 import com.example.appstreet.retrofit.StreetRetrofit
+import com.example.appstreet.ui.adapter.ListaProdutosAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -16,6 +20,10 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
+    private val service : ProdutoService = StreetRetrofit().produtoService
+    val call  : Call<MutableList<Produto>> = service.buscaTodos()
+
+    private lateinit var adapter : ListaProdutosAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,9 +32,25 @@ class MainActivity : AppCompatActivity() {
         abreFormularioProduto()
 
         buscaProdutos()
+
     }
 
     fun buscaProdutos() {
+
+        call.enqueue(object : Callback<MutableList<Produto>>{
+
+            override fun onFailure(call: Call<MutableList<Produto>>, t: Throwable) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onResponse(
+                call: Call<MutableList<Produto>>,
+                response: Response<MutableList<Produto>>
+            ) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+        })
 
     }
 

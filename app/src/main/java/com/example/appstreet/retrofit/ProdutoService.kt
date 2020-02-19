@@ -9,7 +9,7 @@ import retrofit2.http.POST
 interface ProdutoService {
 
     @GET("produtos")
-    fun buscaTodos(): Call<List<Produto>>
+    fun buscaTodos(): Call<MutableList<Produto>>
 
     @POST("produtos")
     fun insere(@Body produto: Produto): Call<Produto>

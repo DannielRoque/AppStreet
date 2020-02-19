@@ -7,23 +7,25 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 class StreetRetrofit {
-    private val retrofit: Retrofit
 
-    val produtoService: ProdutoService
-        get() = retrofit.create(ProdutoService::class.java)
-
-    init {
-
-        val logging = HttpLoggingInterceptor()
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY)
-        val client = OkHttpClient.Builder()
-            .addInterceptor(logging)
+    private val client by lazy {
+        val interceptor = HttpLoggingInterceptor()
+        interceptor.level = HttpLoggingInterceptor.Level.BODY
+        OkHttpClient.Builder()
+            .addInterceptor(interceptor)
             .build()
+    }
 
-        retrofit = Retrofit.Builder()
+    private val retrofit by lazy {
+        Retrofit.Builder()
             .baseUrl("http://192.168.0.104:8000/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
     }
+
+    val produtoService: ProdutoService by lazy {
+        retrofit.create(ProdutoService::class.java)
+    }
+
 }
