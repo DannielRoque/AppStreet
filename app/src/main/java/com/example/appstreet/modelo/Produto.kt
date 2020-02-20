@@ -4,7 +4,7 @@ import java.io.Serializable
 
 class Produto(
     val id : Int? = null,
-    val nome : String = "",
+    var nome : String = "",
     var descricao : String = "",
     var quantidade : Int? = null,
     var preco : Double? = null

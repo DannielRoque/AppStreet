@@ -18,7 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/formulario_produto_codigo_hint"
+        android:id="@+id/formulario_produto_nome_hint"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -31,27 +31,28 @@
         app:layout_constraintTop_toBottomOf="@id/toolbar_formulario_produto">
 
         <EditText
-            android:id="@+id/formulario_produto_codigo"
+            android:id="@+id/formulario_produto_nome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/codigo_produto"
-            android:inputType="number"
+            android:hint="@string/nome_produto"
+            android:inputType="text"
+            android:maxLength="25"
             android:maxLines="1"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/formulario_produto_nome_hint"
+        android:id="@+id/formulario_produto_descricao_hint"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:theme="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-        app:layout_constraintEnd_toEndOf="@id/formulario_produto_codigo_hint"
-        app:layout_constraintStart_toStartOf="@id/formulario_produto_codigo_hint"
-        app:layout_constraintTop_toBottomOf="@id/formulario_produto_codigo_hint">
+        app:layout_constraintEnd_toEndOf="@id/formulario_produto_nome_hint"
+        app:layout_constraintStart_toStartOf="@id/formulario_produto_nome_hint"
+        app:layout_constraintTop_toBottomOf="@id/formulario_produto_nome_hint">
 
         <EditText
-            android:id="@+id/formulario_produto_nome"
+            android:id="@+id/formulario_produto_descricao"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/descricao"
@@ -66,9 +67,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:theme="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-        app:layout_constraintStart_toStartOf="@id/formulario_produto_nome_hint"
-        app:layout_constraintTop_toBottomOf="@id/formulario_produto_nome_hint"
-        app:layout_constraintEnd_toEndOf="@id/formulario_produto_nome_hint">
+        app:layout_constraintStart_toStartOf="@id/formulario_produto_descricao_hint"
+        app:layout_constraintTop_toBottomOf="@id/formulario_produto_descricao_hint"
+        app:layout_constraintEnd_toEndOf="@id/formulario_produto_descricao_hint">
 
         <EditText
             android:id="@+id/formulario_produto_quantidade"

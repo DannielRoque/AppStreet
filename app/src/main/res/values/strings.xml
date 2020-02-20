@@ -8,4 +8,5 @@
     <string name="endereco">Endereco</string>
     <string name="telefone">Telefone</string>
     <string name="descricao">Descricao</string>
+    <string name="nome_produto">Nome Produto</string>
 </resources>

@@ -21,7 +21,7 @@ import retrofit2.Response
 class MainActivity : AppCompatActivity() {
 
     private val service : ProdutoService = StreetRetrofit().produtoService
-    val call  : Call<MutableList<Produto>> = service.buscaTodos()
+    private val call  : Call<MutableList<Produto>> = service.buscaTodos()
 
     private lateinit var adapter : ListaProdutosAdapter
 
