@@ -18,7 +18,7 @@ class StreetRetrofit {
 
     private val retrofit by lazy {
         Retrofit.Builder()
-            .baseUrl("http://192.168.0.106:8000/api/")
+            .baseUrl("http://192.168.0.103:8000/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
@@ -26,6 +26,10 @@ class StreetRetrofit {
 
     val produtoService: ProdutoService by lazy {
         retrofit.create(ProdutoService::class.java)
+    }
+
+    val clienteService : ClienteService by lazy {
+        retrofit.create(ClienteService::class.java)
     }
 
 }

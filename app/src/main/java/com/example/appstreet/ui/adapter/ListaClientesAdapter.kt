@@ -42,16 +42,16 @@ class ListaClientesAdapter(
         private val objetoJson = Gson()
 
         fun bind(cliente: Cliente) {
-            with(cliente) {
+
                 itemView.setOnClickListener {
                     val dado = objetoJson.toJson(cliente)
                     onItemClickListener.onItemClick(dado, layoutPosition)
                 }
-                campoNome.text = nome
-                campoEndereco.text = endereco
-                campoTelefone.text = telefone
-                campoObservacao.text = observacao
-            }
+                campoNome.text = cliente.nome
+                campoObservacao.text = cliente.observacao
+                campoEndereco.text = cliente.endereco
+                campoTelefone.text = cliente.telefone
+
         }
     }
 }

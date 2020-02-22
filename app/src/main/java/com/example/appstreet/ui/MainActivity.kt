@@ -5,9 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.RecyclerView
 import com.example.appstreet.R
 import com.example.appstreet.modelo.Produto
 import com.example.appstreet.retrofit.ProdutoService
@@ -20,34 +18,35 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
-    private val service : ProdutoService = StreetRetrofit().produtoService
-    private val call  : Call<MutableList<Produto>> = service.buscaTodos()
+    private val service: ProdutoService = StreetRetrofit().produtoService
 
-    private lateinit var adapter : ListaProdutosAdapter
+    private lateinit var adapter: ListaProdutosAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         configuraToolBar()
         abreFormularioProduto()
+    }
 
+    override fun onResume() {
+        super.onResume()
         buscaProdutos()
-
     }
 
     fun buscaProdutos() {
-
-        call.enqueue(object : Callback<MutableList<Produto>>{
+        val call: Call<MutableList<Produto>> = service.buscaTodos()
+        call.enqueue(object : Callback<MutableList<Produto>> {
 
             override fun onResponse(
                 call: Call<MutableList<Produto>>,
                 response: Response<MutableList<Produto>>
             ) {
 
-                when{
-                    response.isSuccessful->{
+                when {
+                    response.isSuccessful -> {
                         response.body()?.let {
-                            val respostaProduto : MutableList<Produto> =
+                            val respostaProduto: MutableList<Produto> =
                                 response.body()!!
                             configuraRecyclerView(respostaProduto)
                         }
@@ -62,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun configuraRecyclerView(resposta : MutableList<Produto>){
+    private fun configuraRecyclerView(resposta: MutableList<Produto>) {
         Log.e("Roque", "resposta $resposta")
         adapter = ListaProdutosAdapter(resposta)
         lista_produtos_recyclerview.adapter = adapter
@@ -87,7 +86,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun abreFormularioProduto() {
         val fab = botao_adiciona_produto
-        fab.setOnClickListener{
+        fab.setOnClickListener {
             val intent = Intent(this@MainActivity, FormularioProdutoActivity::class.java)
             startActivity(intent)
         }

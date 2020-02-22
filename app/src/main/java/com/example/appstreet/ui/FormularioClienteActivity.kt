@@ -1,19 +1,31 @@
 package com.example.appstreet.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.appstreet.R
+import com.example.appstreet.modelo.Cliente
+import com.example.appstreet.retrofit.ClienteService
+import com.example.appstreet.retrofit.StreetRetrofit
+import com.example.appstreet.ui.helper.FormularioClienteHelper
 import kotlinx.android.synthetic.main.activity_formulario_cliente.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class FormularioClienteActivity : AppCompatActivity() {
+
+    private val service: ClienteService = StreetRetrofit().clienteService
+    private lateinit var helper: FormularioClienteHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_formulario_cliente)
         configuraToolBar()
+        helper = FormularioClienteHelper(this)
     }
 
 
@@ -24,7 +36,30 @@ class FormularioClienteActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.menu_salvar) {
-            Toast.makeText(this, "Teste Salvar", Toast.LENGTH_SHORT).show()
+            val cliente = helper.pegaCliente()
+
+            val call: Call<Cliente> = service.insereCliente(cliente)
+            call.enqueue(object : Callback<Cliente> {
+
+                override fun onResponse(call: Call<Cliente>, response: Response<Cliente>) {
+                    when {
+                        response.isSuccessful -> {
+                            response.body()?.let {
+                                Toast.makeText(
+                                    this@FormularioClienteActivity,
+                                    "Adicionado com sucesso",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                finish()
+                            }
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<Cliente>, t: Throwable) {
+                    Log.e("ROQUE", "Erro $t")
+                }
+            })
         }
         return super.onOptionsItemSelected(item)
     }

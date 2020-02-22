@@ -18,9 +18,9 @@ class FormularioClienteHelper(activity: FormularioClienteActivity) {
     fun pegaCliente() : Cliente{
         val cliente = Cliente()
         cliente.nome= campoNome.text.toString()
+        cliente.observacao = campoObservacao.text.toString()
         cliente.telefone = campoTelefone.text.toString()
         cliente.endereco = campoEndereco.text.toString()
-        cliente.observacao = campoObservacao.text.toString()
         return cliente
     }
 }
