@@ -5,12 +5,16 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.appstreet.R
 import com.example.appstreet.modelo.Produto
 import com.example.appstreet.retrofit.ProdutoService
 import com.example.appstreet.retrofit.StreetRetrofit
 import com.example.appstreet.ui.adapter.ListaProdutosAdapter
+import com.example.appstreet.ui.adapter.OnItemClickListener
+import com.example.appstreet.ui.adapter.OnLongClickListener
+import com.example.appstreet.ui.dialog.Dialog_custom
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -65,6 +69,26 @@ class MainActivity : AppCompatActivity() {
         Log.e("Roque", "resposta $resposta")
         adapter = ListaProdutosAdapter(resposta)
         lista_produtos_recyclerview.adapter = adapter
+        adapter.setOnLongCliclListener(object : OnLongClickListener{
+            override fun onLongCLick(view: String, position: Int): Boolean {
+                Dialog_custom(this@MainActivity)
+                    .setMessage(getString(R.string.deletarProdutoMessage))
+                    .setTitle(getString(R.string.deletarProdutoTitle))
+                    .setActivePositiveButtom()
+                    .setNegativeButtom(getString(R.string.cancelar))
+                    .setLabelPositiveButtom(getString(R.string.deletar))
+                    .show()
+                return false
+            }
+        })
+
+        adapter.onItemClickListener(object : OnItemClickListener{
+            override fun onItemClick(view: String, position: Int) {
+                var intentRes = Intent(this@MainActivity, DetalhesProdutoActivity::class.java)
+                intentRes.putExtra(view, 1234)
+                startActivity(intentRes)
+            }
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

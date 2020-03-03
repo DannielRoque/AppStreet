@@ -14,6 +14,7 @@ class ListaProdutosAdapter(
 ) : RecyclerView.Adapter<ListaProdutosAdapter.ListaProdutosViewHolder>() {
 
     private lateinit var onItemClickListener: OnItemClickListener
+    private lateinit var onLongClickListener: OnLongClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListaProdutosViewHolder {
         val inflar = LayoutInflater.from(parent.context)
@@ -33,6 +34,10 @@ class ListaProdutosAdapter(
         this.onItemClickListener = onItemClickListener
     }
 
+    fun setOnLongCliclListener(onLongClickListener: OnLongClickListener){
+        this.onLongClickListener = onLongClickListener
+    }
+
   inner  class ListaProdutosViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val campoNome = itemView.item_produto_nome
@@ -45,6 +50,10 @@ class ListaProdutosAdapter(
             itemView.setOnClickListener {
                 val dado = objectJson.toJson(produto)
                 onItemClickListener.onItemClick(dado, layoutPosition)
+            }
+            itemView.setOnLongClickListener {
+                val dadoLong = objectJson.toJson(produto)
+                onLongClickListener.onLongCLick(dadoLong, layoutPosition)
             }
             campoNome.text = produto.nome
             campoDescricao.text = produto.descricao

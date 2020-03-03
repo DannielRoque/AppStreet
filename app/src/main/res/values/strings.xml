@@ -9,4 +9,8 @@
     <string name="telefone">Telefone</string>
     <string name="descricao">Descricao</string>
     <string name="nome_produto">Nome Produto</string>
+    <string name="deletarProdutoMessage">Deseja realmente Deletar este Produto?</string>
+    <string name="deletarProdutoTitle">Deletar Produto</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="deletar">Deletar</string>
 </resources>
