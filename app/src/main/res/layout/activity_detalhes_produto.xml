@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:textAlignment="center"
-        android:hint="2"
+        android:hint="1"
         android:layout_marginEnd="16sp"
         android:inputType="number"
         app:layout_constraintStart_toEndOf="@id/quantidade"
@@ -71,18 +71,18 @@
         android:textSize="20sp"
         android:layout_marginTop="30sp"
         android:layout_marginStart="16sp"
-        android:text="parcela (s):"
+        android:text="Total:"
         app:layout_constraintTop_toBottomOf="@id/activity_detalhes_quantidade"
         app:layout_constraintStart_toStartOf="@id/activity_detalhes_preco"
         app:layout_constraintEnd_toStartOf="@id/activity_detalhes_quantidade"/>
 
-    <Spinner
+    <TextView
         android:id="@+id/activity_detalhes_parcelas"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:textAlignment="center"
-        android:hint="2"
+        android:hint="00,00"
         android:layout_marginEnd="16sp"
         android:inputType="number"
         app:layout_constraintStart_toEndOf="@id/parcela"
