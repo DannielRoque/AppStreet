@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.appstreet.R
+import com.example.appstreet.components.PATH_DETALHES
 import com.example.appstreet.modelo.Produto
 import com.example.appstreet.retrofit.ProdutoService
 import com.example.appstreet.retrofit.StreetRetrofit
@@ -85,7 +86,7 @@ class MainActivity : AppCompatActivity() {
         adapter.onItemClickListener(object : OnItemClickListener{
             override fun onItemClick(view: String, position: Int) {
                 var intentRes = Intent(this@MainActivity, DetalhesProdutoActivity::class.java)
-                intentRes.putExtra(view, 1234)
+                intentRes.putExtra(PATH_DETALHES, view)
                 startActivity(intentRes)
             }
         })
