@@ -11,6 +11,7 @@ import com.example.appstreet.R
 import com.example.appstreet.modelo.Produto
 import com.example.appstreet.retrofit.ProdutoService
 import com.example.appstreet.retrofit.StreetRetrofit
+import com.example.appstreet.ui.dialog.LoadingDialog
 import com.example.appstreet.ui.helper.FormularioProdutoHelper
 import kotlinx.android.synthetic.main.activity_formulario_produto.*
 import retrofit2.Call
@@ -18,7 +19,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class FormularioProdutoActivity : AppCompatActivity() {
-
+    private var loading : LoadingDialog? = null
     private val service: ProdutoService = StreetRetrofit().produtoService
     internal var context: Context? = null
     lateinit var helper: FormularioProdutoHelper
@@ -28,8 +29,13 @@ class FormularioProdutoActivity : AppCompatActivity() {
         setContentView(R.layout.activity_formulario_produto)
         helper = FormularioProdutoHelper(this)
         configuraToolbar()
+        loading = LoadingDialog(this)
     }
 
+    override fun onResume() {
+        super.onResume()
+        loading?.dismiss()
+    }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater

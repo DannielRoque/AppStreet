@@ -10,6 +10,7 @@ import com.example.appstreet.R
 import com.example.appstreet.modelo.Cliente
 import com.example.appstreet.retrofit.ClienteService
 import com.example.appstreet.retrofit.StreetRetrofit
+import com.example.appstreet.ui.dialog.LoadingDialog
 import com.example.appstreet.ui.helper.FormularioClienteHelper
 import kotlinx.android.synthetic.main.activity_formulario_cliente.*
 import retrofit2.Call
@@ -17,6 +18,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class FormularioClienteActivity : AppCompatActivity() {
+
+    private var loading : LoadingDialog? = null
 
     private val service: ClienteService = StreetRetrofit().clienteService
     private lateinit var helper: FormularioClienteHelper
@@ -26,8 +29,13 @@ class FormularioClienteActivity : AppCompatActivity() {
         setContentView(R.layout.activity_formulario_cliente)
         configuraToolBar()
         helper = FormularioClienteHelper(this)
+        loading = LoadingDialog(this)
     }
 
+    override fun onResume() {
+        super.onResume()
+        loading?.dismiss()
+    }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_salva, menu)

@@ -2,6 +2,7 @@ package com.example.appstreet.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -16,12 +17,15 @@ import com.example.appstreet.ui.adapter.ListaProdutosAdapter
 import com.example.appstreet.ui.adapter.OnItemClickListener
 import com.example.appstreet.ui.adapter.OnLongClickListener
 import com.example.appstreet.ui.dialog.Dialog_custom
+import com.example.appstreet.ui.dialog.LoadingDialog
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
+
+    private var loading: LoadingDialog? = null
 
     private val service: ProdutoService = StreetRetrofit().produtoService
 
@@ -32,11 +36,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         configuraToolBar()
         abreFormularioProduto()
+        loading = LoadingDialog(this)
     }
 
     override fun onResume() {
         super.onResume()
         buscaProdutos()
+        loading?.dismiss()
     }
 
     fun buscaProdutos() {
@@ -70,7 +76,7 @@ class MainActivity : AppCompatActivity() {
         Log.e("Roque", "resposta $resposta")
         adapter = ListaProdutosAdapter(resposta)
         lista_produtos_recyclerview.adapter = adapter
-        adapter.setOnLongCliclListener(object : OnLongClickListener{
+        adapter.setOnLongCliclListener(object : OnLongClickListener {
             override fun onLongCLick(view: String, position: Int): Boolean {
                 Dialog_custom(this@MainActivity)
                     .setMessage(getString(R.string.deletarProdutoMessage))
@@ -83,11 +89,14 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        adapter.onItemClickListener(object : OnItemClickListener{
+        adapter.onItemClickListener(object : OnItemClickListener {
             override fun onItemClick(view: String, position: Int) {
+                Handler().postDelayed({
                 var intentRes = Intent(this@MainActivity, DetalhesProdutoActivity::class.java)
                 intentRes.putExtra(PATH_DETALHES, view)
                 startActivity(intentRes)
+                loading?.show()
+                },2000)
             }
         })
     }
@@ -99,12 +108,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.menu_cliente) {
-            val intent = Intent(this, ListaClientesActivity::class.java)
-            startActivity(intent)
-        } else if (item.itemId == R.id.menu_pagamento) {
-            val intent = Intent(this, ListaPagamentosActivity::class.java)
-            startActivity(intent)
+        when {
+            item.itemId == R.id.menu_cliente -> {
+                loading?.show()
+                Handler().postDelayed({
+                val intent = Intent(this, ListaClientesActivity::class.java)
+                startActivity(intent)
+                },2000)
+            }
+            item.itemId == R.id.menu_pagamento -> {
+                loading?.show()
+                Handler().postDelayed({
+                val intent = Intent(this, ListaPagamentosActivity::class.java)
+                startActivity(intent)
+                }, 2000)
+            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -112,8 +130,11 @@ class MainActivity : AppCompatActivity() {
     private fun abreFormularioProduto() {
         val fab = botao_adiciona_produto
         fab.setOnClickListener {
+            loading?.show()
+            Handler().postDelayed({
             val intent = Intent(this@MainActivity, FormularioProdutoActivity::class.java)
             startActivity(intent)
+            }, 2000)
         }
     }
 

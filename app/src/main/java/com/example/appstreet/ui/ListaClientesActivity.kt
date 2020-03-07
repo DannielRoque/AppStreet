@@ -3,12 +3,14 @@ package com.example.appstreet.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import com.example.appstreet.R
 import com.example.appstreet.modelo.Cliente
 import com.example.appstreet.retrofit.ClienteService
 import com.example.appstreet.retrofit.StreetRetrofit
 import com.example.appstreet.ui.adapter.ListaClientesAdapter
+import com.example.appstreet.ui.dialog.LoadingDialog
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_lista_clientes.*
 import retrofit2.Call
@@ -17,6 +19,7 @@ import retrofit2.Response
 
 class ListaClientesActivity : AppCompatActivity() {
 
+    private var loading : LoadingDialog? = null
     private lateinit var adapter : ListaClientesAdapter
     private val service : ClienteService = StreetRetrofit().clienteService
 
@@ -25,11 +28,13 @@ class ListaClientesActivity : AppCompatActivity() {
         setContentView(R.layout.activity_lista_clientes)
         configuraToolbar()
         vaiParaFormularioCliente()
+        loading = LoadingDialog(this)
     }
 
     override fun onResume() {
         super.onResume()
         buscaClientes()
+        loading?.dismiss()
     }
 
     private fun buscaClientes(){
@@ -66,8 +71,11 @@ class ListaClientesActivity : AppCompatActivity() {
     private fun vaiParaFormularioCliente() {
         val fab = botao_adiciona_cliente
         fab.setOnClickListener {
+            loading?.show()
+            Handler().postDelayed({
             val intent = Intent(this@ListaClientesActivity, FormularioClienteActivity::class.java)
             startActivity(intent)
+            },2000)
         }
     }
 
