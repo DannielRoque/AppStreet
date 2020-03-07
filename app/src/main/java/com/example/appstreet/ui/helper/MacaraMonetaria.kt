@@ -1,7 +1,10 @@
 package com.example.appstreet.ui.helper
 
-import android.text.TextWatcher
+import java.math.BigDecimal
+import java.text.DecimalFormat
+import java.util.*
 
-abstract class MacaraMonetaria : TextWatcher {
-
+fun Double.formataparaBrasileiro(): String {
+    val formatoBrasileiro = DecimalFormat.getCurrencyInstance(Locale("pt", "br"))
+    return formatoBrasileiro.format(this).replace("R$", "R$: ")
 }

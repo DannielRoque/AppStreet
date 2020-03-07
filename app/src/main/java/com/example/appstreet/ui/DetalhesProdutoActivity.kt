@@ -9,6 +9,7 @@ import com.example.appstreet.extension.debounce
 import com.example.appstreet.extension.onChangeText
 import com.example.appstreet.modelo.Produto
 import com.example.appstreet.ui.dialog.LoadingDialog
+import com.example.appstreet.ui.helper.formataparaBrasileiro
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_detalhes_produto.*
@@ -32,7 +33,8 @@ class DetalhesProdutoActivity : AppCompatActivity() {
                     Gson().fromJson(detalhesJson, object : TypeToken<Produto>() {}.type)
                 produto = detalhes
                 activity_detalhes_descricao.text = detalhes.descricao
-                activity_detalhes_preco.text = detalhes.preco.toString()
+                activity_detalhes_nome.text = detalhes.nome
+                activity_detalhes_preco.text = detalhes.preco?.formataparaBrasileiro()
             }
         }
     }
@@ -48,10 +50,10 @@ class DetalhesProdutoActivity : AppCompatActivity() {
             val textFormated = text?.trim()
             if (textFormated?.length!! > 0) {
                 activity_detalhes_total.text =
-                    textFormated.toInt().times(produto.preco!!.toInt()).toString()
+                    textFormated.toInt().times(produto.preco!!).formataparaBrasileiro()
             }else{
                 activity_detalhes_total.text =
-                    padrao.times(produto.preco!!.toInt()).toString()
+                    padrao.times(produto.preco!!).formataparaBrasileiro()
             }
         }
     }

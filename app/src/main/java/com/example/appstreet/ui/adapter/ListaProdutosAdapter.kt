@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appstreet.R
 import com.example.appstreet.modelo.Produto
+import com.example.appstreet.ui.helper.formataparaBrasileiro
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.item_produto.view.*
 
@@ -58,7 +59,7 @@ class ListaProdutosAdapter(
             campoNome.text = produto.nome
             campoDescricao.text = produto.descricao
             campoQuantidade.text = produto.quantidade.toString()
-            campoPreco.text = produto.preco.toString()
+            campoPreco.text = produto.preco?.formataparaBrasileiro()
         }
     }
 }
