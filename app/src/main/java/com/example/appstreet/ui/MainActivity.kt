@@ -6,7 +6,7 @@ import android.os.Handler
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.appstreet.R
 import com.example.appstreet.components.PATH_DETALHES
@@ -16,6 +16,7 @@ import com.example.appstreet.retrofit.StreetRetrofit
 import com.example.appstreet.ui.adapter.ListaProdutosAdapter
 import com.example.appstreet.ui.adapter.OnItemClickListener
 import com.example.appstreet.ui.adapter.OnLongClickListener
+import com.example.appstreet.ui.component.EmptyList
 import com.example.appstreet.ui.dialog.Dialog_custom
 import com.example.appstreet.ui.dialog.LoadingDialog
 import kotlinx.android.synthetic.main.activity_main.*
@@ -31,12 +32,15 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var adapter: ListaProdutosAdapter
 
+    private lateinit var emptList: EmptyList
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         configuraToolBar()
         abreFormularioProduto()
         loading = LoadingDialog(this)
+        emptList = this.viewEmptyList
     }
 
     override fun onResume() {
@@ -72,10 +76,23 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    private fun emptyList() {
+        emptList.visibility = View.VISIBLE
+    }
+
+    private fun hideEmptyList() {
+        emptList.visibility = View.GONE
+    }
+
     private fun configuraRecyclerView(resposta: MutableList<Produto>) {
         Log.e("Roque", "resposta $resposta")
         adapter = ListaProdutosAdapter(resposta)
         lista_produtos_recyclerview.adapter = adapter
+        if (resposta.size == 0) emptyList()
+
+        if (resposta.size > 0) hideEmptyList()
+
+
         adapter.setOnLongCliclListener(object : OnLongClickListener {
             override fun onLongCLick(view: String, position: Int): Boolean {
                 Dialog_custom(this@MainActivity)
@@ -92,11 +109,11 @@ class MainActivity : AppCompatActivity() {
         adapter.onItemClickListener(object : OnItemClickListener {
             override fun onItemClick(view: String, position: Int) {
                 Handler().postDelayed({
-                var intentRes = Intent(this@MainActivity, DetalhesProdutoActivity::class.java)
-                intentRes.putExtra(PATH_DETALHES, view)
-                startActivity(intentRes)
-                loading?.show()
-                },2000)
+                    var intentRes = Intent(this@MainActivity, DetalhesProdutoActivity::class.java)
+                    intentRes.putExtra(PATH_DETALHES, view)
+                    startActivity(intentRes)
+                    loading?.show()
+                }, 2000)
             }
         })
     }
@@ -112,15 +129,15 @@ class MainActivity : AppCompatActivity() {
             item.itemId == R.id.menu_cliente -> {
                 loading?.show()
                 Handler().postDelayed({
-                val intent = Intent(this, ListaClientesActivity::class.java)
-                startActivity(intent)
-                },2000)
+                    val intent = Intent(this, ListaClientesActivity::class.java)
+                    startActivity(intent)
+                }, 2000)
             }
             item.itemId == R.id.menu_pagamento -> {
                 loading?.show()
                 Handler().postDelayed({
-                val intent = Intent(this, ListaPagamentosActivity::class.java)
-                startActivity(intent)
+                    val intent = Intent(this, ListaPagamentosActivity::class.java)
+                    startActivity(intent)
                 }, 2000)
             }
         }
@@ -132,8 +149,8 @@ class MainActivity : AppCompatActivity() {
         fab.setOnClickListener {
             loading?.show()
             Handler().postDelayed({
-            val intent = Intent(this@MainActivity, FormularioProdutoActivity::class.java)
-            startActivity(intent)
+                val intent = Intent(this@MainActivity, FormularioProdutoActivity::class.java)
+                startActivity(intent)
             }, 2000)
         }
     }

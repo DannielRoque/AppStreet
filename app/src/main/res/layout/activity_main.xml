@@ -1,43 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_lista_produtos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/toolbarBranco"
-        app:titleTextColor="@color/corBranca"
         android:background="@color/cortoolbar"
-        app:layout_constraintTop_toTopOf="parent"
+        android:theme="@style/toolbarBranco"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="@color/corBranca" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/lista_produtos_recyclerview"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_lista_produtos"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:listitem="@layout/item_produto"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_lista_produtos"
+        tools:listitem="@layout/item_produto" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/botao_adiciona_produto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/cortoolbar"
         android:layout_marginEnd="26dp"
         android:layout_marginBottom="26dp"
+        android:backgroundTint="@color/cortoolbar"
         android:src="@drawable/icone_mais"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.example.appstreet.ui.component.EmptyList
+        android:id="@+id/viewEmptyList"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_lista_produtos"
+        app:message="Você não possui itens na lista de produtos, para adicionar, basta clicar no botão abaixo"
+        app:title="Oops !" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
