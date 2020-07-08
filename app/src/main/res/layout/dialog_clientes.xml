@@ -33,7 +33,7 @@
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dialogSelectClient" />
+        app:layout_constraintTop_toBottomOf="@id/dialogSelectClientes" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/dialogSelectDriverRecyclerview"

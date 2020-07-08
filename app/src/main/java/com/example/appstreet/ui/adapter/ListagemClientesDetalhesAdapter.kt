@@ -30,7 +30,7 @@ class ListagemClientesDetalhesAdapter(
         holder.bind(listaClientes[position])
     }
 
-    fun setOnClickListener(calback: (itemClicked: Cliente) -> Unit) {
+    fun setOnClickListener(callback: (itemClicked: Cliente) -> Unit) {
         this.callback = callback
     }
 
