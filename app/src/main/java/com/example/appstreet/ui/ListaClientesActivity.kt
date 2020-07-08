@@ -28,6 +28,7 @@ class ListaClientesActivity : AppCompatActivity() {
         setContentView(R.layout.activity_lista_clientes)
         configuraToolbar()
         vaiParaFormularioCliente()
+        buscaClientes()
         loading = LoadingDialog(this)
     }
 
@@ -66,6 +67,7 @@ class ListaClientesActivity : AppCompatActivity() {
         Log.e("ROQUE", "cliente ${cliente.first()}")
         adapter = ListaClientesAdapter(cliente)
         lista_clientes_recyclerview.adapter = this.adapter
+        adapter.notifyDataSetChanged()
     }
 
     private fun vaiParaFormularioCliente() {

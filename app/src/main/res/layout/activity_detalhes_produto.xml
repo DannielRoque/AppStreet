@@ -107,6 +107,39 @@
         app:layout_constraintBottom_toBottomOf="@id/total"
         app:layout_constraintEnd_toEndOf="@id/activity_detalhes_preco"/>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/todoSelecionaCLiente"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="25dp"
+        app:layout_constraintTop_toBottomOf="@id/activity_detalhes_total">
+
+    <TextView
+        android:id="@+id/seleciona"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Selecione o cliente"
+        android:layout_marginStart="10dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:id="@+id/selecionaCliente"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:hint="Gabriela L"
+        app:layout_constraintTop_toBottomOf="@id/seleciona"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
     <Button
         android:id="@+id/antivity_detalhes_botao"
         android:layout_width="match_parent"
