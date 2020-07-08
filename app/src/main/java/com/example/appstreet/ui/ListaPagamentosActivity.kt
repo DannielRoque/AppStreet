@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.ActionBar
 import com.example.appstreet.R
+import com.example.appstreet.ui.component.EmptyList
 import com.example.appstreet.ui.dialog.LoadingDialog
 import kotlinx.android.synthetic.main.activity_lista_pagamentos.*
 import java.util.*
@@ -15,17 +17,29 @@ import java.util.*
 class ListaPagamentosActivity : AppCompatActivity() {
 
     private var loading : LoadingDialog? = null
+    private lateinit var emptyList : EmptyList
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lista_pagamentos)
         configuraToolbar()
         loading = LoadingDialog(this)
+        emptyList = this.viewEmptyList
+        emptyList()
     }
 
     override fun onResume() {
         super.onResume()
         loading?.dismiss()
+    }
+
+
+    private fun emptyList() {
+        emptyList.visibility = View.VISIBLE
+    }
+
+    private fun hideEmptyList() {
+        emptyList.visibility = View.GONE
     }
 
     private fun configuraToolbar() {

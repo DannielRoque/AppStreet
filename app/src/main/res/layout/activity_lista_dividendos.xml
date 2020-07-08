@@ -27,4 +27,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         tools:listitem="@layout/item_pagamento"/>
 
+    <com.example.appstreet.ui.component.EmptyList
+        android:id="@+id/viewEmptyList"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_lista_dividendos"
+        app:message="Você não possui dívidas ou parcelamentos em sua lista, para adicionar efetue uma venda"
+        app:title="Oops !" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
